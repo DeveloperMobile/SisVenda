@@ -1,5 +1,5 @@
 
-package com.github.developermobile.sisvenda.cliente;
+package com.github.developermobile.sysvenda.fornecedor;
 
 import com.github.developermobile.util.Constantes;
 import java.text.ParseException;
@@ -16,15 +16,15 @@ import javax.swing.text.MaskFormatter;
  *
  * @author tiago
  */
-public class ClienteFrame extends javax.swing.JInternalFrame {
+public class FornecedorFrame extends javax.swing.JInternalFrame {
 
     private DefaultTableModel tableModel;
     private ListSelectionModel listModel;
-    private List<Cliente> clientes;
+    private List<Fornecedor> fornecedores;
     private int modo;
     //private RegistrarVendaFrame registraVendaFrame;
     
-    public ClienteFrame() {
+    public FornecedorFrame() {
         initComponents();
         defineModelo();
         btnSelecionaCliente.setVisible(false);
@@ -38,8 +38,8 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
     }*/
 
     private void defineModelo() {
-        tableModel = (DefaultTableModel) tbCliente.getModel();
-        listModel = tbCliente.getSelectionModel();
+        tableModel = (DefaultTableModel) tbFornecedor.getModel();
+        listModel = tbFornecedor.getSelectionModel();
         listModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -65,33 +65,33 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
     }
     
     private void atualizaTabela() {
-        if (tfFiltroCliente.getText().trim().equals("")) {
-            clientes = ServiceCliente.consultaCliente();
+        if (tfFiltroFornecedor.getText().trim().equals("")) {
+            fornecedores = ServiceFornecedor.consultaFornecedor();
         } else {
-            clientes = ServiceCliente.consultaCliente(tfFiltroCliente.getText().trim());
+            fornecedores = ServiceFornecedor.consultaFornecedor(tfNomeFornecedor.getText().trim());
         }
         int numeroLinha = tableModel.getRowCount();
         for (int i = 0; i < numeroLinha; i++) {
             tableModel.removeRow(0);
         }
-        for (int i = 0; i < clientes.size(); i++) {
-            tableModel.insertRow(i, new Object[]{ clientes.get(i).getId(), clientes.get(i).getNome() });
+        for (int i = 0; i < fornecedores.size(); i++) {
+            tableModel.insertRow(i, new Object[]{ fornecedores.get(i).getId(), fornecedores.get(i).getNome() });
         }
     }
     
     private void mostraDetalheCliente() {
-        if (tbCliente.getSelectedRow() != -1) {
-            int indice = tbCliente.getSelectedRow();
-            tfNomeCliente.setText(clientes.get(indice).getNome());
-            tfEndereco.setText(clientes.get(indice).getEndereco());
-            tfBairro.setText(clientes.get(indice).getBairro());
-            tfCidade.setText(clientes.get(indice).getCidade());
-            cbUf.setSelectedItem(clientes.get(indice).getUf());
-            ftfCep.setText(clientes.get(indice).getCep());
-            ftfTelefone.setText(clientes.get(indice).getTelefone());
-            tfEmail.setText(clientes.get(indice).getEmail());
+        if (tbFornecedor.getSelectedRow() != -1) {
+            int indice = tbFornecedor.getSelectedRow();
+            tfNomeFornecedor.setText(fornecedores.get(indice).getNome());
+            tfEndereco.setText(fornecedores.get(indice).getEndereco());
+            tfBairro.setText(fornecedores.get(indice).getBairro());
+            tfCidade.setText(fornecedores.get(indice).getCidade());
+            cbUf.setSelectedItem(fornecedores.get(indice).getUf());
+            ftfCep.setText(fornecedores.get(indice).getCep());
+            ftfTelefone.setText(fornecedores.get(indice).getTelefone());
+            tfEmail.setText(fornecedores.get(indice).getEmail());
         } else {
-            tfNomeCliente.setText("");
+            tfNomeFornecedor.setText("");
             tfEndereco.setText("");
             tfBairro.setText("");
             tfCidade.setText("");
@@ -103,67 +103,67 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
     }
     
     private void incluiCliente() {
-        if (tfNomeCliente.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(this, "Informe o nome do cliente!", "Erro", JOptionPane.ERROR_MESSAGE);
-            tfNomeCliente.requestFocus();
+        if (tfNomeFornecedor.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Informe o nome do fornecedor!", "Erro", JOptionPane.ERROR_MESSAGE);
+            tfNomeFornecedor.requestFocus();
         } else {
-            Cliente cliente = new Cliente();
-            cliente.setNome(tfNomeCliente.getText().trim());
-            cliente.setEndereco(tfEndereco.getText().trim());
-            cliente.setBairro(tfBairro.getText().trim());
-            cliente.setCidade(tfCidade.getText().trim());
-            cliente.setUf(cbUf.getSelectedItem().toString());
-            cliente.setCep((String)ftfCep.getValue());
-            cliente.setTelefone((String)ftfTelefone.getValue());
-            cliente.setEmail(tfEmail.getText().trim());
-            if (ServiceCliente.incluiCliente(cliente)) {
-                JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+            Fornecedor fornecedor = new Fornecedor();
+            fornecedor.setNome(tfNomeFornecedor.getText().trim());
+            fornecedor.setEndereco(tfEndereco.getText().trim());
+            fornecedor.setBairro(tfBairro.getText().trim());
+            fornecedor.setCidade(tfCidade.getText().trim());
+            fornecedor.setUf(cbUf.getSelectedItem().toString());
+            fornecedor.setCep((String)ftfCep.getValue());
+            fornecedor.setTelefone((String)ftfTelefone.getValue());
+            fornecedor.setEmail(tfEmail.getText().trim());
+            if (ServiceFornecedor.incluiFornecedor(fornecedor)) {
+                JOptionPane.showMessageDialog(this, "Fornecedor cadastrado com sucesso", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabela();
                 desabilitaBotoes();
                 desabilitaCampos();
             } else {
-                JOptionPane.showMessageDialog(this, "Erro ao cadastrar cliente!", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Erro ao cadastrar fornecedor!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
     
-    private void alteraCliente() {
-        if (tfNomeCliente.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(this, "Informe o nome do cliente!", "Erro", JOptionPane.ERROR_MESSAGE);
-            tfNomeCliente.requestFocus();
+    private void alteraFornecedor() {
+        if (tfNomeFornecedor.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Informe o nome do fornecedor!", "Erro", JOptionPane.ERROR_MESSAGE);
+            tfNomeFornecedor.requestFocus();
         } else {
-            Cliente cliente = new Cliente();
-            cliente.setId(clientes.get(tbCliente.getSelectedRow()).getId());
-            cliente.setNome(tfNomeCliente.getText().trim());
-            cliente.setEndereco(tfEndereco.getText().trim());
-            cliente.setBairro(tfBairro.getText().trim());
-            cliente.setCidade(tfCidade.getText().trim());
-            cliente.setUf(cbUf.getSelectedItem().toString());
-            cliente.setCep((String)ftfCep.getValue());
-            cliente.setTelefone((String)ftfTelefone.getValue());
-            cliente.setEmail(tfEmail.getText().trim());
-            if (ServiceCliente.alteraCliente(cliente)) {
+            Fornecedor fornecedor = new Fornecedor();
+            fornecedor.setId(fornecedores.get(tbFornecedor.getSelectedRow()).getId());
+            fornecedor.setNome(tfNomeFornecedor.getText().trim());
+            fornecedor.setEndereco(tfEndereco.getText().trim());
+            fornecedor.setBairro(tfBairro.getText().trim());
+            fornecedor.setCidade(tfCidade.getText().trim());
+            fornecedor.setUf(cbUf.getSelectedItem().toString());
+            fornecedor.setCep((String)ftfCep.getValue());
+            fornecedor.setTelefone((String)ftfTelefone.getValue());
+            fornecedor.setEmail(tfEmail.getText().trim());
+            if (ServiceFornecedor.alteraFornecedor(fornecedor)) {
                 JOptionPane.showMessageDialog(this, "Dados alterados com sucesso!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabela();
                 desabilitaBotoes();
                 desabilitaCampos();
             } else {
-                JOptionPane.showMessageDialog(this, "Erro ao alterar o cliente!", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Erro ao alterar o fornecedor!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
     
-    private void excluiCliente() {
-        if (ServiceCliente.excluiCliente(clientes.get(tbCliente.getSelectedRow()))) {
+    private void excluiFornecedor() {
+        if (ServiceFornecedor.excluiFornecedor(fornecedores.get(tbFornecedor.getSelectedRow()))) {
             JOptionPane.showMessageDialog(this, "Dados excluídos com sucesso!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
             atualizaTabela();
         } else {
-            JOptionPane.showMessageDialog(this, "Erro ao excluir o cliente!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao excluir o fornecedor!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
     private void habilitaCampos() {
-        tfNomeCliente.setEnabled(true);
+        tfNomeFornecedor.setEnabled(true);
         tfEndereco.setEnabled(true);
         tfBairro.setEnabled(true);
         tfCidade.setEnabled(true);
@@ -174,7 +174,7 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
     }
     
     private void desabilitaCampos() {
-        tfNomeCliente.setEnabled(false);
+        tfNomeFornecedor.setEnabled(false);
         tfEndereco.setEnabled(false);
         tfBairro.setEnabled(false);
         tfCidade.setEnabled(false);
@@ -214,13 +214,13 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
         lbTitulo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lbFiltro = new javax.swing.JLabel();
-        tfFiltroCliente = new javax.swing.JTextField();
+        tfFiltroFornecedor = new javax.swing.JTextField();
         btnFiltrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbCliente = new javax.swing.JTable();
+        tbFornecedor = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         lbNome = new javax.swing.JLabel();
-        tfNomeCliente = new javax.swing.JTextField();
+        tfNomeFornecedor = new javax.swing.JTextField();
         lbEndereco = new javax.swing.JLabel();
         tfEndereco = new javax.swing.JTextField();
         lbBairro = new javax.swing.JLabel();
@@ -258,7 +258,7 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
         lbTitulo.setBackground(java.awt.SystemColor.activeCaptionBorder);
         lbTitulo.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
         lbTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lbTitulo.setText("Cliente");
+        lbTitulo.setText("Fornecedor");
         jPanel1.add(lbTitulo);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -285,7 +285,7 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel2.add(tfFiltroCliente, gridBagConstraints);
+        jPanel2.add(tfFiltroFornecedor, gridBagConstraints);
 
         btnFiltrar.setText("Pesquisar");
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
@@ -300,7 +300,7 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel2.add(btnFiltrar, gridBagConstraints);
 
-        tbCliente.setModel(new javax.swing.table.DefaultTableModel(
+        tbFornecedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -323,7 +323,7 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tbCliente);
+        jScrollPane1.setViewportView(tbFornecedor);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -354,8 +354,8 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel3.add(lbNome, gridBagConstraints);
 
-        tfNomeCliente.setFont(new java.awt.Font("Serif", 0, 12)); // NOI18N
-        tfNomeCliente.setEnabled(false);
+        tfNomeFornecedor.setFont(new java.awt.Font("Serif", 0, 12)); // NOI18N
+        tfNomeFornecedor.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -363,7 +363,7 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel3.add(tfNomeCliente, gridBagConstraints);
+        jPanel3.add(tfNomeFornecedor, gridBagConstraints);
 
         lbEndereco.setText("Endereço");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -504,7 +504,7 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
 
         jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        btnSelecionaCliente.setText("Seleciona Cliente");
+        btnSelecionaCliente.setText("Seleciona Fornecedor");
         jPanel4.add(btnSelecionaCliente);
 
         btnNovo.setText("Novo");
@@ -572,23 +572,23 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        if (tbCliente.getSelectedRow() != -1) {
+        if (tbFornecedor.getSelectedRow() != -1) {
             habilitaCampos();
             habilitaBotoes();
             modo = Constantes.EDIT_MODE;
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um cliente na lista!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Selecione um fornecedor na lista!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if (tbCliente.getSelectedRow() != -1) {
-            int resposta = JOptionPane.showConfirmDialog(this, "Confirmar exclusão de cliente?", "Confirmação", JOptionPane.YES_NO_OPTION);
+        if (tbFornecedor.getSelectedRow() != -1) {
+            int resposta = JOptionPane.showConfirmDialog(this, "Confirmar exclusão de fornecedor?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
-                excluiCliente();
+                excluiFornecedor();
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um cliente da lista!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Selecione um fornecedor da lista!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -596,7 +596,7 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
         if (modo == Constantes.INSERT_MODE) {
             incluiCliente();
         } else if (modo == Constantes.EDIT_MODE) {
-            alteraCliente();
+            alteraFornecedor();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -632,12 +632,12 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbTelefone;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JLabel lbUf;
-    private javax.swing.JTable tbCliente;
+    private javax.swing.JTable tbFornecedor;
     private javax.swing.JTextField tfBairro;
     private javax.swing.JTextField tfCidade;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfEndereco;
-    private javax.swing.JTextField tfFiltroCliente;
-    private javax.swing.JTextField tfNomeCliente;
+    private javax.swing.JTextField tfFiltroFornecedor;
+    private javax.swing.JTextField tfNomeFornecedor;
     // End of variables declaration//GEN-END:variables
 }

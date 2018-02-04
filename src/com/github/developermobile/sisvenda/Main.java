@@ -6,6 +6,7 @@
 package com.github.developermobile.sisvenda;
 
 import com.github.developermobile.sisvenda.cliente.ClienteFrame;
+import com.github.developermobile.sysvenda.fornecedor.FornecedorFrame;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
@@ -93,6 +94,11 @@ public class Main extends javax.swing.JFrame {
         mnCadastro.add(miCliente);
 
         miFornecedor.setText("Fornecedor");
+        miFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miFornecedorActionPerformed(evt);
+            }
+        });
         mnCadastro.add(miFornecedor);
 
         miProduto.setText("Produto");
@@ -137,11 +143,12 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_miSobreActionPerformed
 
     private void miClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miClienteActionPerformed
-        ClienteFrame clienteFrame = new ClienteFrame();
-        desktopPane.add(clienteFrame);
-        centralizaJanela(clienteFrame);
-        clienteFrame.setVisible(true);
+        abreInternalFrame(new ClienteFrame());
     }//GEN-LAST:event_miClienteActionPerformed
+
+    private void miFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miFornecedorActionPerformed
+        abreInternalFrame(new FornecedorFrame());
+    }//GEN-LAST:event_miFornecedorActionPerformed
 
     
     /**
@@ -193,6 +200,12 @@ public class Main extends javax.swing.JFrame {
     private void centralizaJanela(JInternalFrame internalFrame) {
         internalFrame.setLocation((this.getWidth() - internalFrame.getWidth()) / 2, 
                 (this.getHeight() - internalFrame.getHeight()) / 2);
+    }
+    
+    private void abreInternalFrame(JInternalFrame internalFrame) {
+        desktopPane.add(internalFrame);
+        centralizaJanela(internalFrame);
+        internalFrame.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
