@@ -21,7 +21,7 @@ public class ServiceCliente {
     
     /** 
      Busca todos os clientes no banco de dados */
-    public List<Cliente> consultaCliente() {
+    public static List<Cliente> consultaCliente() {
         clienteDAO = new ClienteDAO();
         return clienteDAO.consultaCliente();
     }
@@ -29,7 +29,7 @@ public class ServiceCliente {
     /** 
      Busca um cliente pelo nome no banco de dados
      @param nome nome do cliente para ser consultado no db */
-    public List<Cliente> consultaCliente(String nome) {
+    public static List<Cliente> consultaCliente(String nome) {
         clienteDAO = new ClienteDAO();
         return clienteDAO.consultaCliente(nome);
     }
@@ -37,7 +37,7 @@ public class ServiceCliente {
     /** 
      Altera um cliente no banco de dados
      @param cliente objeto cliente para ser alterado no db */
-    public boolean alteraCliente(Cliente cliente) {
+    public static boolean alteraCliente(Cliente cliente) {
         clienteDAO = new ClienteDAO();
         return clienteDAO.alteraCliente(cliente);
     }
@@ -45,7 +45,7 @@ public class ServiceCliente {
     /** 
      Exclui um cliente no banco de dados
      @param cliente objeto cliente para ser excluído do db */
-    public boolean excluiCliente(Cliente cliente) {
+    public static boolean excluiCliente(Cliente cliente) {
         clienteDAO = new  ClienteDAO();
         return clienteDAO.excluiCliente(cliente);
     }

@@ -14,10 +14,7 @@ public class AcessoDB {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             return DriverManager.getConnection("jdbc:mysql://localhost/sis_venda", "root", "developer");
-        } catch (ClassNotFoundException ex) {
-            System.out.println(ex.getMessage());
-            return null;
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
             return null;
         }

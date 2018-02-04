@@ -21,9 +21,9 @@ public class ClienteDAO {
     
     private final String CONSULTA_CLIENTE = "SELECT * FROM CLIENTE";
     private final String CONSULTA_CLIENTE_NOME = "SELECT * FROM CLIENTE WHERE CLIENTE.NOME LIKE ?";
-    private final String INCLUI_CLIENTE = "INSERT INTO CLIENTE (nome, endereco, bairro, cidade, uf, ecp, telefone, email) "
+    private final String INCLUI_CLIENTE = "INSERT INTO CLIENTE (nome, endereco, bairro, cidade, uf, cep, telefone, email) "
             + "VALUES (?,?,?,?,?,?,?,?)";
-    private final String ALTERA_CLIENTE = "UPDATE CLIENTE SET nome=?, endereco=?, bairro=?, uf=?, cep=?, telefone=?, email=? WHERE CLIENTE.ID=?";
+    private final String ALTERA_CLIENTE = "UPDATE CLIENTE SET nome=?, endereco=?, bairro=?, cidade=?, uf=?, cep=?, telefone=?, email=? WHERE CLIENTE.ID=?";
     private final String EXCLUI_CLIENTE = "DELETE FROM CLIENTE WHERE CLIENTE.ID=?";
     
     public List<Cliente> consultaCliente() {
@@ -116,7 +116,7 @@ public class ClienteDAO {
             stmt.setString(5, cliente.getUf());
             stmt.setString(6, cliente.getCep());
             stmt.setString(7, cliente.getTelefone());
-            stmt.setString(8, cliente.getBairro());
+            stmt.setString(8, cliente.getEmail());
             stmt.setInt(9, cliente.getId());
             stmt.executeUpdate();
             return true;

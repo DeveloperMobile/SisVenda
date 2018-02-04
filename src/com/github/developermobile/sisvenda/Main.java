@@ -5,8 +5,10 @@
  */
 package com.github.developermobile.sisvenda;
 
+import com.github.developermobile.sisvenda.cliente.ClienteFrame;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -50,6 +52,7 @@ public class Main extends javax.swing.JFrame {
         miSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Vendas");
         setMinimumSize(new java.awt.Dimension(800, 700));
         setPreferredSize(new java.awt.Dimension(800, 700));
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -82,6 +85,11 @@ public class Main extends javax.swing.JFrame {
         mnCadastro.setText("Cadastro");
 
         miCliente.setText("Cliente");
+        miCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miClienteActionPerformed(evt);
+            }
+        });
         mnCadastro.add(miCliente);
 
         miFornecedor.setText("Fornecedor");
@@ -124,9 +132,18 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_miSairActionPerformed
 
     private void miSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSobreActionPerformed
-        JOptionPane.showMessageDialog(null, "Sistema de Vendas - tiago.pereira.vieira@gmail.com");
+        JOptionPane.showMessageDialog(null, "Sistema de Vendas - tiago.pereira.vieira@gmail.com", 
+                "Informação", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_miSobreActionPerformed
 
+    private void miClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miClienteActionPerformed
+        ClienteFrame clienteFrame = new ClienteFrame();
+        desktopPane.add(clienteFrame);
+        centralizaJanela(clienteFrame);
+        clienteFrame.setVisible(true);
+    }//GEN-LAST:event_miClienteActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -171,6 +188,11 @@ public class Main extends javax.swing.JFrame {
                 new Main().setVisible(true);
             }
         });
+    }
+    
+    private void centralizaJanela(JInternalFrame internalFrame) {
+        internalFrame.setLocation((this.getWidth() - internalFrame.getWidth()) / 2, 
+                (this.getHeight() - internalFrame.getHeight()) / 2);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
