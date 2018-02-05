@@ -1,4 +1,4 @@
-package com.github.developermobile.sysvenda.fornecedor;
+package com.github.developermobile.sisvenda.fornecedor;
 
 /**
  *

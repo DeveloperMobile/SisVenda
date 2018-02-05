@@ -1,6 +1,7 @@
 
-package com.github.developermobile.sysvenda.fornecedor;
+package com.github.developermobile.sisvenda.fornecedor;
 
+import com.github.developermobile.sisvenda.produto.ProdutoFrame;
 import com.github.developermobile.util.Constantes;
 import java.text.ParseException;
 import java.util.List;
@@ -22,7 +23,7 @@ public class FornecedorFrame extends javax.swing.JInternalFrame {
     private ListSelectionModel listModel;
     private List<Fornecedor> fornecedores;
     private int modo;
-    //private RegistrarVendaFrame registraVendaFrame;
+    private ProdutoFrame produtoFrame;
     
     public FornecedorFrame() {
         initComponents();
@@ -30,12 +31,12 @@ public class FornecedorFrame extends javax.swing.JInternalFrame {
         btnSelecionaCliente.setVisible(false);
     }
     
-    /*public ClienteFrame(RegistraVendaFrame registraVendaFrame) {
+    public FornecedorFrame(ProdutoFrame produtoFrame) {
         initComponents();
         defineModelo();
         btnSelecionaCliente.setVisible(true);
-        //this.registraVendaFrame = registraVendaFrame;
-    }*/
+        this.produtoFrame = produtoFrame;
+    }
 
     private void defineModelo() {
         tableModel = (DefaultTableModel) tbFornecedor.getModel();
@@ -247,7 +248,7 @@ public class FornecedorFrame extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Cliente");
+        setTitle("Fornecedor");
         setMinimumSize(new java.awt.Dimension(600, 500));
         setPreferredSize(new java.awt.Dimension(600, 500));
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -505,6 +506,11 @@ public class FornecedorFrame extends javax.swing.JInternalFrame {
         jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         btnSelecionaCliente.setText("Seleciona Fornecedor");
+        btnSelecionaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionaClienteActionPerformed(evt);
+            }
+        });
         jPanel4.add(btnSelecionaCliente);
 
         btnNovo.setText("Novo");
@@ -604,6 +610,16 @@ public class FornecedorFrame extends javax.swing.JInternalFrame {
         desabilitaBotoes();
         desabilitaCampos();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnSelecionaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionaClienteActionPerformed
+        if (tbFornecedor.getSelectedRow() != -1) {
+            produtoFrame.setFornecedor(fornecedores.get(tbFornecedor.getSelectedRow()));
+            this.dispose();
+            produtoFrame.toFront();
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um fornecedor da lista!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSelecionaClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

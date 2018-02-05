@@ -6,7 +6,8 @@
 package com.github.developermobile.sisvenda;
 
 import com.github.developermobile.sisvenda.cliente.ClienteFrame;
-import com.github.developermobile.sysvenda.fornecedor.FornecedorFrame;
+import com.github.developermobile.sisvenda.fornecedor.FornecedorFrame;
+import com.github.developermobile.sisvenda.produto.ProdutoFrame;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
@@ -102,6 +103,11 @@ public class Main extends javax.swing.JFrame {
         mnCadastro.add(miFornecedor);
 
         miProduto.setText("Produto");
+        miProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miProdutoActionPerformed(evt);
+            }
+        });
         mnCadastro.add(miProduto);
 
         menuBar.add(mnCadastro);
@@ -149,6 +155,10 @@ public class Main extends javax.swing.JFrame {
     private void miFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miFornecedorActionPerformed
         abreInternalFrame(new FornecedorFrame());
     }//GEN-LAST:event_miFornecedorActionPerformed
+
+    private void miProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miProdutoActionPerformed
+        abreInternalFrame(new ProdutoFrame());
+    }//GEN-LAST:event_miProdutoActionPerformed
 
     
     /**
