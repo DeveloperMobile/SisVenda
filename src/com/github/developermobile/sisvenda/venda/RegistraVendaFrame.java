@@ -1,9 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.github.developermobile.sisvenda.venda;
+
+import com.github.developermobile.sisvenda.cliente.Cliente;
+import com.github.developermobile.sisvenda.cliente.ClienteFrame;
+import com.github.developermobile.sisvenda.produto.Produto;
+import com.github.developermobile.sisvenda.produto.ProdutoFrame;
+import java.sql.Date;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 
 /**
  *
@@ -11,13 +21,124 @@ package com.github.developermobile.sisvenda.venda;
  */
 public class RegistraVendaFrame extends javax.swing.JInternalFrame {
 
+    private DefaultTableModel tableModel;
+    private List<ItensVenda> itensVendas;
+    private Produto produto;
+    private Cliente cliente;
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+        tfNomeProduto.setText(produto.getNome());
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+        tfNomeCliente.setText(cliente.getNome());
+    }
+    
+    
+    
     /**
      * Creates new form RegistraVendaFrame
      */
     public RegistraVendaFrame() {
         initComponents();
+        defineModelo();
+        itensVendas = new ArrayList<>();
     }
 
+    private void defineModelo() {
+        tableModel = (DefaultTableModel) tbItensVenda.getModel();
+        try {
+            DecimalFormat formatoValor = new DecimalFormat("#,###.00");
+            NumberFormatter formatterValor = new NumberFormatter(formatoValor);
+            formatterValor.setValueClass(Double.class);
+            ftfValorTotal.setFormatterFactory(new DefaultFormatterFactory(formatterValor));
+            
+            DecimalFormat formatoQuantidader = new DecimalFormat("#,###");
+            NumberFormatter formatterQuantidade = new NumberFormatter(formatoQuantidader);
+            formatterQuantidade.setValueClass(Integer.class);
+            ftfQuantidade.setFormatterFactory(new DefaultFormatterFactory(formatterQuantidade));
+            
+            tbItensVenda.getColumnModel().getColumn(0).setPreferredWidth(400);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    private void atualizaTabela() {
+        int numeroLinha = tbItensVenda.getRowCount();
+        
+        for (int i = 0; i < numeroLinha; i++) {
+            tableModel.removeRow(0);
+        }
+        
+        double valorTotal = 0.0;
+        
+        for (int i = 0; i < itensVendas.size(); i++) {
+            tableModel.insertRow(i, new Object[]{itensVendas.get(i).getProduto().getNome(), 
+                itensVendas.get(i).getQtde(),
+                itensVendas.get(i).getProduto().getValor(),
+                itensVendas.get(i).getProduto().getValor() * itensVendas.get(i).getQtde()
+            });
+            valorTotal += itensVendas.get(i).getProduto().getValor() * itensVendas.get(i).getQtde();
+        }
+        ftfValorTotal.setValue(valorTotal);
+    }
+    
+    private void incluiProduto() {
+        if (produto == null) {
+            JOptionPane.showMessageDialog(this, "Selecione o produto!", "Erro", JOptionPane.ERROR_MESSAGE);
+            tfNomeProduto.requestFocus();
+        } else if (ftfQuantidade.getValue() == null) {
+            JOptionPane.showMessageDialog(this, "Informe a quantidade!", "Erro", JOptionPane.ERROR_MESSAGE);
+            ftfQuantidade.requestFocus();
+        } else {
+            ItensVenda itensVenda = new ItensVenda();
+            itensVenda.setProduto(produto);
+            itensVenda.setQtde((Integer)ftfQuantidade.getValue());
+            itensVenda.setValor(produto.getValor());
+            itensVendas.add(itensVenda);
+            atualizaTabela();
+        }
+    }
+    
+    private void excluiProduto() {
+        if (tbItensVenda.getSelectedRow() != -1) {
+            itensVendas.remove(tbItensVenda.getSelectedRow());
+            atualizaTabela();
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um item da lista!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void registraVenda() {
+        if (cliente == null) {
+            JOptionPane.showMessageDialog(this, "Selecione o cliente!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else if (itensVendas.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Insira itens na venda!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Venda venda = new Venda();
+            venda.setCliente(cliente);
+            Calendar dataAtual = Calendar.getInstance();
+            venda.setDataVenda(new Date(dataAtual.getTime().getTime()));
+            venda.setItensVendas(itensVendas);
+            if (ServiceVenda.registraVenda(venda)) {
+                JOptionPane.showMessageDialog(this, "Venda registrada com sucesso!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao registrar venda!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,6 +195,8 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
         getContentPane().add(jPanel1, gridBagConstraints);
 
         jPanel2.setLayout(new java.awt.GridBagLayout());
+
+        tfNomeCliente.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -83,6 +206,11 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
         jPanel2.add(tfNomeCliente, gridBagConstraints);
 
         btnSelecionaCliente.setText("...");
+        btnSelecionaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionaClienteActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 0;
@@ -97,6 +225,8 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel2.add(lbNomeProduto, gridBagConstraints);
+
+        tfNomeProduto.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -107,6 +237,11 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
         jPanel2.add(tfNomeProduto, gridBagConstraints);
 
         btnBuscarProduto.setText("...");
+        btnBuscarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarProdutoActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
@@ -138,6 +273,11 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
         jPanel2.add(ftfQuantidade, gridBagConstraints);
 
         btnIncluiProduto.setText("Incluir");
+        btnIncluiProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluiProdutoActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 1;
@@ -192,6 +332,7 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
         lbValorTotal.setText("Valor Total");
         jPanel3.add(lbValorTotal);
 
+        ftfValorTotal.setEditable(false);
         ftfValorTotal.setMinimumSize(new java.awt.Dimension(70, 27));
         ftfValorTotal.setPreferredSize(new java.awt.Dimension(70, 27));
         jPanel3.add(ftfValorTotal);
@@ -206,9 +347,19 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
         jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING));
 
         btnExcluirItem.setText("Excluir Item");
+        btnExcluirItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirItemActionPerformed(evt);
+            }
+        });
         jPanel4.add(btnExcluirItem);
 
         btnRegistrarVenda.setText("Salvar");
+        btnRegistrarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarVendaActionPerformed(evt);
+            }
+        });
         jPanel4.add(btnRegistrarVenda);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -219,6 +370,32 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSelecionaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionaClienteActionPerformed
+        ClienteFrame clienteFrame = new ClienteFrame(this);
+        clienteFrame.setVisible(true);
+        this.getDesktopPane().add(clienteFrame);
+        clienteFrame.toFront();
+    }//GEN-LAST:event_btnSelecionaClienteActionPerformed
+
+    private void btnBuscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProdutoActionPerformed
+        ProdutoFrame produtoFrame = new ProdutoFrame(this);
+        produtoFrame.setVisible(true);
+        this.getDesktopPane().add(produtoFrame);
+        produtoFrame.toFront();
+    }//GEN-LAST:event_btnBuscarProdutoActionPerformed
+
+    private void btnIncluiProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluiProdutoActionPerformed
+        incluiProduto();
+    }//GEN-LAST:event_btnIncluiProdutoActionPerformed
+
+    private void btnExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirItemActionPerformed
+        excluiProduto();
+    }//GEN-LAST:event_btnExcluirItemActionPerformed
+
+    private void btnRegistrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVendaActionPerformed
+        registraVenda();
+    }//GEN-LAST:event_btnRegistrarVendaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

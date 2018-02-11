@@ -1,6 +1,7 @@
 
 package com.github.developermobile.sisvenda.cliente;
 
+import com.github.developermobile.sisvenda.venda.RegistraVendaFrame;
 import com.github.developermobile.util.Constantes;
 import java.text.ParseException;
 import java.util.List;
@@ -22,7 +23,7 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
     private ListSelectionModel listModel;
     private List<Cliente> clientes;
     private int modo;
-    //private RegistrarVendaFrame registraVendaFrame;
+    private RegistraVendaFrame registraVendaFrame;
     
     public ClienteFrame() {
         initComponents();
@@ -30,12 +31,12 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
         btnSelecionaCliente.setVisible(false);
     }
     
-    /*public ClienteFrame(RegistraVendaFrame registraVendaFrame) {
+    public ClienteFrame(RegistraVendaFrame registraVendaFrame) {
         initComponents();
         defineModelo();
         btnSelecionaCliente.setVisible(true);
-        //this.registraVendaFrame = registraVendaFrame;
-    }*/
+        this.registraVendaFrame = registraVendaFrame;
+    }
 
     private void defineModelo() {
         tableModel = (DefaultTableModel) tbCliente.getModel();
@@ -505,6 +506,11 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
         jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         btnSelecionaCliente.setText("Seleciona Cliente");
+        btnSelecionaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionaClienteActionPerformed(evt);
+            }
+        });
         jPanel4.add(btnSelecionaCliente);
 
         btnNovo.setText("Novo");
@@ -604,6 +610,16 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
         desabilitaBotoes();
         desabilitaCampos();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnSelecionaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionaClienteActionPerformed
+        if (tbCliente.getSelectedRow() != -1) {
+            registraVendaFrame.setCliente(clientes.get(tbCliente.getSelectedRow()));
+            this.dispose();
+            registraVendaFrame.toFront();
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um cliente na lista!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSelecionaClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

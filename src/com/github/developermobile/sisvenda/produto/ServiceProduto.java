@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class ServiceProduto {
     
-    // Instancia da classe Produto
+    // Instancia da classe ProdutoDAO
     private static ProdutoDAO produtoDAO;
     
     /** 

@@ -2,6 +2,7 @@ package com.github.developermobile.sisvenda.produto;
 
 import com.github.developermobile.sisvenda.fornecedor.Fornecedor;
 import com.github.developermobile.sisvenda.fornecedor.FornecedorFrame;
+import com.github.developermobile.sisvenda.venda.RegistraVendaFrame;
 import com.github.developermobile.util.Constantes;
 import java.text.DecimalFormat;
 import java.util.List;
@@ -24,7 +25,7 @@ public class ProdutoFrame extends javax.swing.JInternalFrame {
     private List<Produto> produtos;
     private int modo;
     private Fornecedor fornecedor;
-    //private RegistraVendaFrame registraVendaFrame;
+    private RegistraVendaFrame registraVendaFrame;
     
     /**
      * Creates new form ProdutoFrame
@@ -35,12 +36,12 @@ public class ProdutoFrame extends javax.swing.JInternalFrame {
         btnSelecionaProduto.setVisible(false);
     }
     
-    /*public ProdutoFrame(RegistraVendaFrame registraVendaFrame) {
+    public ProdutoFrame(RegistraVendaFrame registraVendaFrame) {
         initComponents();
         defineModelo();
         btnSelecionaProduto.setVisible(true);
         this.registraVendaFrame = registraVendaFrame;
-    }*/
+    }
 
     private void defineModelo() {
         tableModel = (DefaultTableModel) tbProduto.getModel();
@@ -431,6 +432,11 @@ public class ProdutoFrame extends javax.swing.JInternalFrame {
         jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING));
 
         btnSelecionaProduto.setText("Seleciona Produto");
+        btnSelecionaProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionaProdutoActionPerformed(evt);
+            }
+        });
         jPanel4.add(btnSelecionaProduto);
 
         btnNovo.setText("Novo");
@@ -536,6 +542,16 @@ public class ProdutoFrame extends javax.swing.JInternalFrame {
         this.getDesktopPane().add(fornecedorFrame);
         fornecedorFrame.toFront();
     }//GEN-LAST:event_btnSelecionaFornecedorActionPerformed
+
+    private void btnSelecionaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionaProdutoActionPerformed
+        if (tbProduto.getSelectedRow() != -1) {
+            registraVendaFrame.setProduto(produtos.get(tbProduto.getSelectedRow()));
+            this.dispose();
+            registraVendaFrame.toFront();
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um produto na lista!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSelecionaProdutoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

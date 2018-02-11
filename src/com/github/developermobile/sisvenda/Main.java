@@ -8,13 +8,13 @@ package com.github.developermobile.sisvenda;
 import com.github.developermobile.sisvenda.cliente.ClienteFrame;
 import com.github.developermobile.sisvenda.fornecedor.FornecedorFrame;
 import com.github.developermobile.sisvenda.produto.ProdutoFrame;
+import com.github.developermobile.sisvenda.venda.RegistraVendaFrame;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import sun.swing.UIAction;
 
 /**
  *
@@ -115,6 +115,11 @@ public class Main extends javax.swing.JFrame {
         mnVendas.setText("Vendas");
 
         miRegistrarVenda.setText("Registrar Venda");
+        miRegistrarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrarVendaActionPerformed(evt);
+            }
+        });
         mnVendas.add(miRegistrarVenda);
 
         miConsultarVenda.setText("Consultar Venda");
@@ -159,6 +164,10 @@ public class Main extends javax.swing.JFrame {
     private void miProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miProdutoActionPerformed
         abreInternalFrame(new ProdutoFrame());
     }//GEN-LAST:event_miProdutoActionPerformed
+
+    private void miRegistrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarVendaActionPerformed
+        abreInternalFrame(new RegistraVendaFrame());
+    }//GEN-LAST:event_miRegistrarVendaActionPerformed
 
     
     /**
