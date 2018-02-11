@@ -8,6 +8,7 @@ package com.github.developermobile.sisvenda;
 import com.github.developermobile.sisvenda.cliente.ClienteFrame;
 import com.github.developermobile.sisvenda.fornecedor.FornecedorFrame;
 import com.github.developermobile.sisvenda.produto.ProdutoFrame;
+import com.github.developermobile.sisvenda.venda.ConsultaVendaFame;
 import com.github.developermobile.sisvenda.venda.RegistraVendaFrame;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,8 +73,10 @@ public class Main extends javax.swing.JFrame {
 
         getContentPane().add(desktopPane, "card2");
 
+        mnSistema.setMnemonic('S');
         mnSistema.setText("Sistema");
 
+        miSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
         miSair.setText("Sair");
         miSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,8 +87,10 @@ public class Main extends javax.swing.JFrame {
 
         menuBar.add(mnSistema);
 
+        mnCadastro.setMnemonic('C');
         mnCadastro.setText("Cadastro");
 
+        miCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         miCliente.setText("Cliente");
         miCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +99,7 @@ public class Main extends javax.swing.JFrame {
         });
         mnCadastro.add(miCliente);
 
+        miFornecedor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
         miFornecedor.setText("Fornecedor");
         miFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,6 +108,7 @@ public class Main extends javax.swing.JFrame {
         });
         mnCadastro.add(miFornecedor);
 
+        miProduto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
         miProduto.setText("Produto");
         miProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,8 +119,10 @@ public class Main extends javax.swing.JFrame {
 
         menuBar.add(mnCadastro);
 
+        mnVendas.setMnemonic('V');
         mnVendas.setText("Vendas");
 
+        miRegistrarVenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
         miRegistrarVenda.setText("Registrar Venda");
         miRegistrarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,13 +131,21 @@ public class Main extends javax.swing.JFrame {
         });
         mnVendas.add(miRegistrarVenda);
 
+        miConsultarVenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
         miConsultarVenda.setText("Consultar Venda");
+        miConsultarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miConsultarVendaActionPerformed(evt);
+            }
+        });
         mnVendas.add(miConsultarVenda);
 
         menuBar.add(mnVendas);
 
+        mnAjuda.setMnemonic('A');
         mnAjuda.setText("Ajuda");
 
+        miSobre.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         miSobre.setText("Sobre");
         miSobre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,6 +185,10 @@ public class Main extends javax.swing.JFrame {
     private void miRegistrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarVendaActionPerformed
         abreInternalFrame(new RegistraVendaFrame());
     }//GEN-LAST:event_miRegistrarVendaActionPerformed
+
+    private void miConsultarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultarVendaActionPerformed
+        abreInternalFrame(new ConsultaVendaFame());
+    }//GEN-LAST:event_miConsultarVendaActionPerformed
 
     
     /**

@@ -81,12 +81,14 @@ public class VendaDAO {
                 
                 List<ItensVenda> itensVendas = new ArrayList<>();
                 while (rs2.next()) {
-                    ItensVenda itensVenda = resultToItensVenda(rs);
+                    ItensVenda itensVenda = resultToItensVenda(rs2);
                     itensVendas.add(itensVenda);
                 }
                 venda.setItensVendas(itensVendas);
                 vendas.add(venda);
             }
+            rs2.close();
+            rs.close();
             return vendas;
         } catch (Exception e) {
             System.out.println(e.getMessage());
