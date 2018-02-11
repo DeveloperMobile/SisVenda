@@ -70,7 +70,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="tfNomeCliente">
+        <Component class="javax.swing.JTextField" name="tfNomeProduto">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -103,7 +103,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfNomeProduto">
+        <Component class="javax.swing.JTextField" name="tfNomeCliente">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -147,6 +147,9 @@
           </Constraints>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="ftfQuantidade">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
               <GridBagConstraints gridX="4" gridY="1" gridWidth="1" gridHeight="1" fill="1" ipadX="50" ipadY="0" insetsTop="5" insetsLeft="5" insetsBottom="5" insetsRight="5" anchor="10" weightX="0.0" weightY="0.0"/>
@@ -240,6 +243,7 @@
         <Component class="javax.swing.JFormattedTextField" name="ftfValorTotal">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[70, 27]"/>
             </Property>

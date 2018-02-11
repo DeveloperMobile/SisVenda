@@ -97,7 +97,7 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
     private void incluiProduto() {
         if (produto == null) {
             JOptionPane.showMessageDialog(this, "Selecione o produto!", "Erro", JOptionPane.ERROR_MESSAGE);
-            tfNomeProduto.requestFocus();
+            tfNomeCliente.requestFocus();
         } else if (ftfQuantidade.getValue() == null) {
             JOptionPane.showMessageDialog(this, "Informe a quantidade!", "Erro", JOptionPane.ERROR_MESSAGE);
             ftfQuantidade.requestFocus();
@@ -152,10 +152,10 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         lbTitulo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        tfNomeCliente = new javax.swing.JTextField();
+        tfNomeProduto = new javax.swing.JTextField();
         btnSelecionaCliente = new javax.swing.JButton();
         lbNomeProduto = new javax.swing.JLabel();
-        tfNomeProduto = new javax.swing.JTextField();
+        tfNomeCliente = new javax.swing.JTextField();
         btnBuscarProduto = new javax.swing.JButton();
         lbNomeCliente = new javax.swing.JLabel();
         lbQtde = new javax.swing.JLabel();
@@ -196,14 +196,14 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
 
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        tfNomeCliente.setEnabled(false);
+        tfNomeProduto.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel2.add(tfNomeCliente, gridBagConstraints);
+        jPanel2.add(tfNomeProduto, gridBagConstraints);
 
         btnSelecionaCliente.setText("...");
         btnSelecionaCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -226,7 +226,7 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel2.add(lbNomeProduto, gridBagConstraints);
 
-        tfNomeProduto.setEnabled(false);
+        tfNomeCliente.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -234,7 +234,7 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel2.add(tfNomeProduto, gridBagConstraints);
+        jPanel2.add(tfNomeCliente, gridBagConstraints);
 
         btnBuscarProduto.setText("...");
         btnBuscarProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -264,6 +264,8 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel2.add(lbQtde, gridBagConstraints);
+
+        ftfQuantidade.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 1;
@@ -333,6 +335,7 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
         jPanel3.add(lbValorTotal);
 
         ftfValorTotal.setEditable(false);
+        ftfValorTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         ftfValorTotal.setMinimumSize(new java.awt.Dimension(70, 27));
         ftfValorTotal.setPreferredSize(new java.awt.Dimension(70, 27));
         jPanel3.add(ftfValorTotal);
