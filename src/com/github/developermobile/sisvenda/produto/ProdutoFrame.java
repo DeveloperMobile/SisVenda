@@ -458,6 +458,7 @@ public class ProdutoFrame extends javax.swing.JInternalFrame {
         jPanel4.add(btnExcluir);
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setEnabled(false);
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -466,6 +467,7 @@ public class ProdutoFrame extends javax.swing.JInternalFrame {
         jPanel4.add(btnSalvar);
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.setEnabled(false);
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
