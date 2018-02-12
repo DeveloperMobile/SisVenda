@@ -10,6 +10,7 @@ import com.github.developermobile.sisvenda.fornecedor.FornecedorFrame;
 import com.github.developermobile.sisvenda.produto.ProdutoFrame;
 import com.github.developermobile.sisvenda.venda.ConsultaVendaFame;
 import com.github.developermobile.sisvenda.venda.RegistraVendaFrame;
+import com.github.developermobile.util.DesktopPaneImage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
@@ -23,11 +24,14 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Main extends javax.swing.JFrame {
 
+    DesktopPaneImage desktopPane = new DesktopPaneImage("img/logo_app.png");
+    
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
+        this.add(desktopPane, "card1");
         this.setLocationRelativeTo(null);
     }
 
@@ -40,7 +44,6 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        desktopPane = new javax.swing.JDesktopPane();
         menuBar = new javax.swing.JMenuBar();
         mnSistema = new javax.swing.JMenu();
         miSair = new javax.swing.JMenuItem();
@@ -59,19 +62,6 @@ public class Main extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(800, 700));
         setPreferredSize(new java.awt.Dimension(800, 700));
         getContentPane().setLayout(new java.awt.CardLayout());
-
-        javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
-        desktopPane.setLayout(desktopPaneLayout);
-        desktopPaneLayout.setHorizontalGroup(
-            desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        desktopPaneLayout.setVerticalGroup(
-            desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(desktopPane, "card2");
 
         mnSistema.setMnemonic('S');
         mnSistema.setText("Sistema");
@@ -249,7 +239,6 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem miCliente;
     private javax.swing.JMenuItem miConsultarVenda;
