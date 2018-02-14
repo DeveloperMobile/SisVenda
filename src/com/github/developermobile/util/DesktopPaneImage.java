@@ -1,14 +1,9 @@
 
 package com.github.developermobile.util;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
-import javax.swing.JLabel;
 
 /**
  *
