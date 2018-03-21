@@ -11,6 +11,10 @@ import com.github.developermobile.sisvenda.produto.ProdutoFrame;
 import com.github.developermobile.sisvenda.venda.ConsultaVendaFame;
 import com.github.developermobile.sisvenda.venda.RegistraVendaFrame;
 import com.github.developermobile.util.DesktopPaneImage;
+import java.awt.AWTKeyStroke;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
@@ -31,6 +35,7 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        nextFocusEnter();
         this.add(desktopPane, "card1");
         this.setLocationRelativeTo(null);
     }
@@ -226,6 +231,12 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void nextFocusEnter() {
+        HashSet conj = new HashSet(this.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
+        conj.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_ENTER, 0));
+        this.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, conj);
+    } 
     
     private void centralizaJanela(JInternalFrame internalFrame) {
         internalFrame.setLocation((this.getWidth() - internalFrame.getWidth()) / 2, 
