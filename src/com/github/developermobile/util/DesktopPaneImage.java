@@ -2,6 +2,7 @@
 package com.github.developermobile.util;
 
 import java.awt.Graphics;
+import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 
@@ -11,9 +12,9 @@ import javax.swing.JDesktopPane;
  */
 public class DesktopPaneImage extends JDesktopPane {
     
-    private String caminhoImagem;
+    private URL caminhoImagem;
     
-    public DesktopPaneImage(String caminhoImagem) {
+    public DesktopPaneImage(URL caminhoImagem) {
         this.caminhoImagem = caminhoImagem;
     }
 

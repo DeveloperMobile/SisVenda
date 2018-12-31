@@ -2,16 +2,19 @@
 package com.github.developermobile.sisvenda.venda;
 
 import java.sql.Date;
-import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.DateFormatter;
-import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -60,19 +63,27 @@ public class ConsultaVendaFame extends javax.swing.JInternalFrame {
     }
     
     private void atualizaTabela() {
-        java.sql.Date dataInicial = new java.sql.Date(((java.util.Date)ftfDataInicio.getValue()).getTime());
-        java.sql.Date dataFinal = new java.sql.Date(((java.util.Date) ftfDataFim.getValue()).getTime());
-        vendas = ServiceVenda.consultaVendaPeriodo(dataInicial, dataFinal);
-        int numeroLinha = tbVenda.getRowCount();
-        
-        for (int i = 0; i < numeroLinha; i++) {
-            tableModelVenda.removeRow(0);
-        }
-        
-        for (int i = 0; i < vendas.size(); i++) {
-            tableModelVenda.insertRow(i, new Object[]{vendas.get(i).getId(),
-                vendas.get(i).getCliente().getNome(),
-                vendas.get(i).getDataVenda()});
+        try {
+            SimpleDateFormat formatDataIncial = new SimpleDateFormat("dd/MM/yyyy", new Locale("pt-br", "Brazilian"));
+            java.util.Date dataInicio = formatDataIncial.parse(ftfDataInicio.getText());
+            java.util.Date dataFim = formatDataIncial.parse(ftfDataFim.getText());
+            
+            java.sql.Date dataInicial = new java.sql.Date(dataInicio.getTime());
+            java.sql.Date dataFinal = new java.sql.Date(dataFim.getTime());
+            vendas = ServiceVenda.consultaVendaPeriodo(dataInicial, dataFinal);
+            int numeroLinha = tbVenda.getRowCount();
+            
+            for (int i = 0; i < numeroLinha; i++) {
+                tableModelVenda.removeRow(0);
+            }
+            
+            for (int i = 0; i < vendas.size(); i++) {
+                tableModelVenda.insertRow(i, new Object[]{vendas.get(i).getId(),
+                    vendas.get(i).getCliente().getNome(),
+                    vendas.get(i).getDataVenda()});
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(ConsultaVendaFame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -112,15 +123,15 @@ public class ConsultaVendaFame extends javax.swing.JInternalFrame {
         lbTitulo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblDataInicio = new javax.swing.JLabel();
-        ftfDataInicio = new javax.swing.JFormattedTextField();
         lblDataFim = new javax.swing.JLabel();
-        ftfDataFim = new javax.swing.JFormattedTextField();
         btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbVenda = new javax.swing.JTable();
         lbItensVenda = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbItensVenda = new javax.swing.JTable();
+        ftfDataInicio = new javax.swing.JFormattedTextField();
+        ftfDataFim = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -134,7 +145,6 @@ public class ConsultaVendaFame extends javax.swing.JInternalFrame {
         jPanel1.setBackground(java.awt.SystemColor.activeCaption);
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        lbTitulo.setBackground(java.awt.SystemColor.activeCaption);
         lbTitulo.setFont(new java.awt.Font("Serif", 0, 36)); // NOI18N
         lbTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lbTitulo.setText("Consultar Venda");
@@ -158,15 +168,6 @@ public class ConsultaVendaFame extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel2.add(lblDataInicio, gridBagConstraints);
 
-        ftfDataInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM))));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel2.add(ftfDataInicio, gridBagConstraints);
-
         lblDataFim.setText("Data Fim");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -174,15 +175,6 @@ public class ConsultaVendaFame extends javax.swing.JInternalFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel2.add(lblDataFim, gridBagConstraints);
-
-        ftfDataFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM))));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel2.add(ftfDataFim, gridBagConstraints);
 
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -274,6 +266,20 @@ public class ConsultaVendaFame extends javax.swing.JInternalFrame {
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel2.add(jScrollPane2, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel2.add(ftfDataInicio, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel2.add(ftfDataFim, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -287,10 +293,13 @@ public class ConsultaVendaFame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        if (ftfDataInicio.getValue() == null) {
+        System.out.println(ftfDataInicio.getText().replace("/", ""));
+        //JFormattedTextField.AbstractFormatter formatterInicio = ftfDataInicio.getFormatter();
+        //JFormattedTextField.AbstractFormatter formatterFim = ftfDataFim.getFormatter();
+        if (ftfDataInicio == null) {
             JOptionPane.showMessageDialog(this, "Informe a data inicial!", "Erro", JOptionPane.ERROR_MESSAGE);
             ftfDataInicio.requestFocus();
-        } else if (ftfDataFim.getValue() == null) {
+        } else if (ftfDataFim == null) {
             JOptionPane.showMessageDialog(this, "Informe a data final!", "Erro", JOptionPane.ERROR_MESSAGE);
             ftfDataFim.requestFocus();
         } else {

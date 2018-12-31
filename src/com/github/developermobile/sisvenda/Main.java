@@ -28,7 +28,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Main extends javax.swing.JFrame {
 
-    DesktopPaneImage desktopPane = new DesktopPaneImage("img/logo_app.png");
+    DesktopPaneImage desktopPane = new DesktopPaneImage(getClass().getResource("/img/logo_app.png"));
     
     /**
      * Creates new form Main
