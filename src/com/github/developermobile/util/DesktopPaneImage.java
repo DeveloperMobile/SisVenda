@@ -1,6 +1,7 @@
 
 package com.github.developermobile.util;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.net.URL;
 import javax.swing.ImageIcon;
@@ -22,7 +23,10 @@ public class DesktopPaneImage extends JDesktopPane {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         ImageIcon img = new ImageIcon(caminhoImagem);
-        g.drawImage(img.getImage(), 50, 50, this);
+        Dimension d = this.getSize();
+        int x = (int) (d.getWidth() - img.getIconWidth()) / 2;
+        int y = (int) (d.getHeight() - img.getIconHeight()) / 2;
+        g.drawImage(img.getImage(), x, y, img.getIconWidth(), img.getIconHeight(), this);
     }
     
 }
