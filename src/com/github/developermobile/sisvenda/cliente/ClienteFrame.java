@@ -253,10 +253,8 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
         setPreferredSize(new java.awt.Dimension(600, 500));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jPanel1.setBackground(java.awt.SystemColor.activeCaption);
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        lbTitulo.setBackground(java.awt.SystemColor.activeCaptionBorder);
         lbTitulo.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
         lbTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lbTitulo.setText("Cliente");

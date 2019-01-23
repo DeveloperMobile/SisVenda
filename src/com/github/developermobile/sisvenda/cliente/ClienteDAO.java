@@ -88,7 +88,7 @@ public class ClienteDAO {
             stmt.setString(5, cliente.getUf());
             stmt.setString(6, cliente.getCep());
             stmt.setString(7, cliente.getTelefone());
-            stmt.setString(8, cliente.getBairro());
+            stmt.setString(8, cliente.getEmail());
             stmt.executeUpdate();
             return true;
         } catch (Exception e) {
