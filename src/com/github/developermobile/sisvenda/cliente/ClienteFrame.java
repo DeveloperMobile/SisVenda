@@ -128,6 +128,31 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
         }
     }
     
+    private void incluiClienteJPA() {
+        if (tfNomeCliente.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Informe o nome do cliente!", "Erro", JOptionPane.ERROR_MESSAGE);
+            tfNomeCliente.requestFocus();
+        } else {
+            Cliente cliente = new Cliente();
+            cliente.setNome(tfNomeCliente.getText().trim());
+            cliente.setEndereco(tfEndereco.getText().trim());
+            cliente.setBairro(tfBairro.getText().trim());
+            cliente.setCidade(tfCidade.getText().trim());
+            cliente.setUf(cbUf.getSelectedItem().toString());
+            cliente.setCep((String)ftfCep.getValue());
+            cliente.setTelefone((String)ftfTelefone.getValue());
+            cliente.setEmail(tfEmail.getText().trim());
+            if (ServiceCliente.incluiCliente(cliente)) {
+                JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+                atualizaTabela();
+                desabilitaBotoes();
+                desabilitaCampos();
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao cadastrar cliente!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
     private void alteraCliente() {
         if (tfNomeCliente.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Informe o nome do cliente!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -599,6 +624,7 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (modo == Constantes.INSERT_MODE) {
             incluiCliente();
+            
         } else if (modo == Constantes.EDIT_MODE) {
             alteraCliente();
         }
