@@ -1,20 +1,65 @@
+
 package com.github.developermobile.sisvenda.fornecedor;
+
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  *
- * @author Login
+ * @author tiago
  */
-public class Fornecedor {
+@Entity
+@Table(name = "FORNECEDOR")
+@NamedQueries({
+    @NamedQuery(name = "Fornecedor.findAll", query = "SELECT f FROM Fornecedor f"),
+    @NamedQuery(name = "Fornecedor.findById", query = "SELECT f FROM Fornecedor f WHERE f.id = :id"),
+    @NamedQuery(name = "Fornecedor.findByNome", query = "SELECT f FROM Fornecedor f WHERE f.nome = :nome"),
+    @NamedQuery(name = "Fornecedor.findByEndereco", query = "SELECT f FROM Fornecedor f WHERE f.endereco = :endereco"),
+    @NamedQuery(name = "Fornecedor.findByBairro", query = "SELECT f FROM Fornecedor f WHERE f.bairro = :bairro"),
+    @NamedQuery(name = "Fornecedor.findByCidade", query = "SELECT f FROM Fornecedor f WHERE f.cidade = :cidade"),
+    @NamedQuery(name = "Fornecedor.findByUf", query = "SELECT f FROM Fornecedor f WHERE f.uf = :uf"),
+    @NamedQuery(name = "Fornecedor.findByCep", query = "SELECT f FROM Fornecedor f WHERE f.cep = :cep"),
+    @NamedQuery(name = "Fornecedor.findByTelefone", query = "SELECT f FROM Fornecedor f WHERE f.telefone = :telefone"),
+    @NamedQuery(name = "Fornecedor.findByEmail", query = "SELECT f FROM Fornecedor f WHERE f.email = :email")})
+public class Fornecedor implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
     private Integer id;
+    @Column(name = "NOME")
     private String nome;
+    @Column(name = "ENDERECO")
     private String endereco;
+    @Column(name = "BAIRRO")
     private String bairro;
+    @Column(name = "CIDADE")
     private String cidade;
+    @Column(name = "UF")
     private String uf;
+    @Column(name = "CEP")
     private String cep;
+    @Column(name = "TELEFONE")
     private String telefone;
+    @Column(name = "EMAIL")
     private String email;
+
+    public Fornecedor() {
+    }
+
+    public Fornecedor(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;
@@ -88,4 +133,29 @@ public class Fornecedor {
         this.email = email;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Fornecedor)) {
+            return false;
+        }
+        Fornecedor other = (Fornecedor) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.github.developermobile.sisvenda.fornecedor.Fornecedor[ id=" + id + " ]";
+    }
+    
 }

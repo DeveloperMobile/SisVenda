@@ -50,7 +50,7 @@ public class ClienteDAO implements DAO<Cliente> {
 
     @Override
     public boolean exclui(Cliente cliente) {
-        EntityManager em = JPAUtil.getEntityManager();
+       EntityManager em = JPAUtil.getEntityManager();
        try {
            Transaction et = (Transaction) em.getTransaction();
            et.begin();

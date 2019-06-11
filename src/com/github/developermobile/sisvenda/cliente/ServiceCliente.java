@@ -1,6 +1,5 @@
 package com.github.developermobile.sisvenda.cliente;
 
-import com.github.developermobile.sisvenda.dao.DAO;
 import java.util.List;
 
 /**
