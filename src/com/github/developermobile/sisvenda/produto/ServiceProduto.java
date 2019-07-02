@@ -16,14 +16,14 @@ public class ServiceProduto {
      @param produto objeto produto para ser inserido no db */
     public static boolean incluiProduto(Produto produto) {
         produtoDAO = new ProdutoDAO();
-        return produtoDAO.incluiProduto(produto);
+        return produtoDAO.inclui(produto);
     }
     
     /** 
      Busca todos os produtos no banco de dados */
     public static List<Produto> consultaProduto() {
         produtoDAO = new ProdutoDAO();
-        return produtoDAO.consultaProduto();
+        return produtoDAO.consulta();
     }
     
     /** 
@@ -31,7 +31,7 @@ public class ServiceProduto {
      @param nome nome do produto para ser consultado no db */
     public static List<Produto> consultaProduto(String nome) {
         produtoDAO = new ProdutoDAO();
-        return produtoDAO.consultaProduto(nome);
+        return produtoDAO.consulta(nome);
     }
     
     /** 
@@ -39,7 +39,7 @@ public class ServiceProduto {
      @param produto objeto cliente para ser alterado no db */
     public static boolean alteraProduto(Produto produto) {
         produtoDAO = new ProdutoDAO();
-        return produtoDAO.alteraProduto(produto);
+        return produtoDAO.altera(produto);
     }
     
     /** 
@@ -47,7 +47,7 @@ public class ServiceProduto {
      @param produto  objeto produto para ser excluído do db */
     public static boolean excluiProduto(Produto produto) {
         produtoDAO = new  ProdutoDAO();
-        return produtoDAO.excluiProduto(produto);
+        return produtoDAO.exclui(produto);
     }
     
 }

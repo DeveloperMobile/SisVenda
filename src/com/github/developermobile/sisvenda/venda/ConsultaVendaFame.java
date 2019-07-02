@@ -76,7 +76,7 @@ public class ConsultaVendaFame extends javax.swing.JInternalFrame {
             
             for (int i = 0; i < vendas.size(); i++) {
                 tableModelVenda.insertRow(i, new Object[]{vendas.get(i).getId(),
-                    vendas.get(i).getCliente().getNome(),
+                    vendas.get(i).getIdCliente().getNome(),
                     vendas.get(i).getDataVenda()});
             }
         } catch (ParseException ex) {

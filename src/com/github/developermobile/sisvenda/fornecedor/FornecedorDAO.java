@@ -3,6 +3,7 @@ package com.github.developermobile.sisvenda.fornecedor;
 import com.github.developermobile.sisvenda.cliente.Cliente;
 import com.github.developermobile.sisvenda.dao.DAO;
 import com.github.developermobile.util.JPAUtil;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -72,7 +73,7 @@ public class FornecedorDAO implements DAO<Fornecedor> {
         EntityManager em = JPAUtil.getEntityManager();
         List<Fornecedor> fornecedores = new ArrayList<>();
         try {
-            Query q = em.createQuery("SELECT f FROM Fornecedor f", Fornecedor.class);
+            Query q = em.createNamedQuery(Fornecedor.FIND_ALL, Fornecedor.class);
             fornecedores = q.getResultList();
             return fornecedores;
         } catch (Exception e) {
@@ -88,8 +89,8 @@ public class FornecedorDAO implements DAO<Fornecedor> {
         EntityManager em = JPAUtil.getEntityManager();
         List<Fornecedor> fornecedores = new ArrayList<>();
         try {
-            Query q = em.createQuery("SELECT f FROM Fornecedor f WHERE f.nome = :nome", Fornecedor.class);
-            q.setParameter("nome", nome);
+            Query q = em.createNamedQuery(Fornecedor.FIND_BY_NOME, Fornecedor.class);
+            q.setParameter("nome", "%" + nome + "%");
             fornecedores = q.getResultList();
             return fornecedores;
         } catch (Exception e) {
@@ -99,5 +100,9 @@ public class FornecedorDAO implements DAO<Fornecedor> {
             em.close();
         }
     }
-    
+
+    @Override
+    public List<Fornecedor> consulta(Date dataInicio, Date dataFim) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

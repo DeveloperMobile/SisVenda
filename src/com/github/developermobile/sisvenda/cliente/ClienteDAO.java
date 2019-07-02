@@ -2,11 +2,12 @@ package com.github.developermobile.sisvenda.cliente;
 
 import com.github.developermobile.sisvenda.dao.DAO;
 import com.github.developermobile.util.JPAUtil;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -18,16 +19,19 @@ public class ClienteDAO implements DAO<Cliente> {
     public boolean inclui(Cliente cliente) {
         EntityManager em = JPAUtil.getEntityManager();
         try {
-            Transaction tx = (Transaction) em.getTransaction();
-            tx.begin();
+            EntityTransaction et = em.getTransaction();
+            et.begin();
             em.persist(cliente);
-            tx.commit();
+            et.commit();
             return true;
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
+            if (em.isOpen()) {
+                em.getTransaction().rollback();
+            }
             return false;
         } finally {
-            em.close();
+            JPAUtil.closeEntityManager();
         }
     }
 
@@ -35,16 +39,19 @@ public class ClienteDAO implements DAO<Cliente> {
     public boolean altera(Cliente cliente) {
         EntityManager em = JPAUtil.getEntityManager();
         try {
-            Transaction et = (Transaction) em.getTransaction();
+            EntityTransaction et = em.getTransaction();
             et.begin();
             em.merge(cliente);
             et.commit();
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            if (em.isOpen()) {
+                em.getTransaction().rollback();
+            }
             return false;
         } finally {
-            em.close();
+            JPAUtil.closeEntityManager();
         }
     }
 
@@ -52,7 +59,7 @@ public class ClienteDAO implements DAO<Cliente> {
     public boolean exclui(Cliente cliente) {
        EntityManager em = JPAUtil.getEntityManager();
        try {
-           Transaction et = (Transaction) em.getTransaction();
+           EntityTransaction et = em.getTransaction();
            et.begin();
            cliente = em.merge(cliente);
            em.remove(cliente);
@@ -60,9 +67,12 @@ public class ClienteDAO implements DAO<Cliente> {
            return true;
        } catch (Exception e) {
            System.out.println(e.getMessage());
+           if (em.isOpen()) {
+                em.getTransaction().rollback();
+            }
            return false;
        } finally {
-           em.close();
+           JPAUtil.closeEntityManager();
        }
     }
 
@@ -71,14 +81,17 @@ public class ClienteDAO implements DAO<Cliente> {
         EntityManager em = JPAUtil.getEntityManager();
         List<Cliente> clientes = new ArrayList<>();
         try {
-            Query q = em.createQuery("SELECT c FROM Cliente c", Cliente.class);
+            Query q = em.createNamedQuery(Cliente.FIND_ALL, Cliente.class);
             clientes = q.getResultList();
             return clientes;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            if (em.isOpen()) {
+                em.getTransaction().rollback();
+            }
             return new ArrayList<Cliente>();
         } finally {
-            em.close();
+            JPAUtil.closeEntityManager();
         }
     }
 
@@ -87,18 +100,24 @@ public class ClienteDAO implements DAO<Cliente> {
         EntityManager em = JPAUtil.getEntityManager();
         List<Cliente> clientes = new ArrayList<>();
         try {
-            Query q = em.createQuery("SELECT c FROM Cliente c WHERE c.nome = :nome", Cliente.class);
-            q.setParameter("nome", nome);
+            Query q = em.createNamedQuery(Cliente.FIND_BY_NOME, Cliente.class);
+            q.setParameter("nome", "%" + nome + "%");
             clientes = q.getResultList();
             return clientes;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            if (em.isOpen()) {
+                em.getTransaction().rollback();
+            }
             return new ArrayList<Cliente>();
         } finally {
-            em.close();
+            JPAUtil.closeEntityManager();
         }
     }
-  
-    
+
+    @Override
+    public List<Cliente> consulta(Date dataInicio, Date dataFim) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

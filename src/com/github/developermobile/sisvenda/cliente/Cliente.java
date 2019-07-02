@@ -19,37 +19,40 @@ import javax.persistence.Table;
 @Table(name = "CLIENTE")
 @NamedQueries({
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
-    @NamedQuery(name = "Cliente.findById", query = "SELECT c FROM Cliente c WHERE c.id = :id"),
-    @NamedQuery(name = "Cliente.findByNome", query = "SELECT c FROM Cliente c WHERE c.nome = :nome"),
-    @NamedQuery(name = "Cliente.findByEndereco", query = "SELECT c FROM Cliente c WHERE c.endereco = :endereco"),
-    @NamedQuery(name = "Cliente.findByBairro", query = "SELECT c FROM Cliente c WHERE c.bairro = :bairro"),
-    @NamedQuery(name = "Cliente.findByCidade", query = "SELECT c FROM Cliente c WHERE c.cidade = :cidade"),
-    @NamedQuery(name = "Cliente.findByUf", query = "SELECT c FROM Cliente c WHERE c.uf = :uf"),
-    @NamedQuery(name = "Cliente.findByCep", query = "SELECT c FROM Cliente c WHERE c.cep = :cep"),
-    @NamedQuery(name = "Cliente.findByTelefone", query = "SELECT c FROM Cliente c WHERE c.telefone = :telefone"),
-    @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email")})
+    @NamedQuery(name = "Cliente.findByNome", query = "SELECT c FROM Cliente c WHERE c.nome LIKE :nome")})
 public class Cliente implements Serializable {
 
+  
+    public static final String FIND_ALL = "Cliente.findAll";
+    public static final String FIND_BY_NOME = "Cliente.findByNome";
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+    
     @Column(name = "NOME")
     private String nome;
+    
     @Column(name = "ENDERECO")
     private String endereco;
+    
     @Column(name = "BAIRRO")
     private String bairro;
+    
     @Column(name = "CIDADE")
     private String cidade;
+    
     @Column(name = "UF")
     private String uf;
+    
     @Column(name = "CEP")
     private String cep;
+    
     @Column(name = "TELEFONE")
     private String telefone;
+    
     @Column(name = "EMAIL")
     private String email;
 
@@ -156,5 +159,4 @@ public class Cliente implements Serializable {
     public String toString() {
         return "com.github.developermobile.sisvenda.cliente.Cliente[ id=" + id + " ]";
     }
-    
 }

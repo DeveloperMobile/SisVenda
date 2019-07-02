@@ -19,7 +19,7 @@ public class ServiceVenda {
      @return true se tudo ok/ false se não ok */
     public static boolean registraVenda(Venda venda) {
         vendaDAO = new VendaDAO();
-        return vendaDAO.registraVenda(venda);
+        return vendaDAO.inclui(venda);
     }
     
     /** Busca todas as vendas por periodo no banco de dados
@@ -28,7 +28,7 @@ public class ServiceVenda {
      @return lista de vendas se houver alguma no db */
     public static List<Venda> consultaVendaPeriodo(Date dataInicio, Date dataFim) {
         vendaDAO = new VendaDAO();
-        return vendaDAO.consultaVendaPeriodo(dataInicio, dataFim);
+        return vendaDAO.consulta(dataInicio, dataFim);
     }
     
 }

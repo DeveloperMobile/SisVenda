@@ -8,7 +8,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -41,12 +40,9 @@ public class FornecedorFrame extends javax.swing.JInternalFrame {
     private void defineModelo() {
         tableModel = (DefaultTableModel) tbFornecedor.getModel();
         listModel = tbFornecedor.getSelectionModel();
-        listModel.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    mostraDetalheCliente();
-                }
+        listModel.addListSelectionListener((ListSelectionEvent e) -> {
+            if (!e.getValueIsAdjusting()) {
+                mostraDetalheCliente();
             }
         });
         try {

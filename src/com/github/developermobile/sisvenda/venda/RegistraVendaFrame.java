@@ -84,7 +84,7 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
         double valorTotal = 0.0;
         
         for (int i = 0; i < itensVendas.size(); i++) {
-            tableModel.insertRow(i, new Object[]{itensVendas.get(i).getProduto().getNome(), 
+            tableModel.insertRow(i, new Object[]{itensVendas.get(i).getProduto().getId(), 
                 itensVendas.get(i).getQtde(),
                 itensVendas.get(i).getProduto().getValor(),
                 itensVendas.get(i).getProduto().getValor() * itensVendas.get(i).getQtde()
@@ -127,9 +127,12 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Insira itens na venda!", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
             Venda venda = new Venda();
-            venda.setCliente(cliente);
+            venda.setIdCliente(cliente);
             Calendar dataAtual = Calendar.getInstance();
             venda.setDataVenda(new Date(dataAtual.getTime().getTime()));
+            for (ItensVenda itensVenda : itensVendas) {
+                itensVenda.setVenda(venda);
+            }
             venda.setItensVendas(itensVendas);
             if (ServiceVenda.registraVenda(venda)) {
                 JOptionPane.showMessageDialog(this, "Venda registrada com sucesso!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);

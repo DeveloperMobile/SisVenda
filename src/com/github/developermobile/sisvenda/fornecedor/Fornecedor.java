@@ -1,8 +1,11 @@
 
 package com.github.developermobile.sisvenda.fornecedor;
 
+import com.github.developermobile.sisvenda.produto.Produto;
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -20,37 +25,42 @@ import javax.persistence.Table;
 @Table(name = "FORNECEDOR")
 @NamedQueries({
     @NamedQuery(name = "Fornecedor.findAll", query = "SELECT f FROM Fornecedor f"),
-    @NamedQuery(name = "Fornecedor.findById", query = "SELECT f FROM Fornecedor f WHERE f.id = :id"),
-    @NamedQuery(name = "Fornecedor.findByNome", query = "SELECT f FROM Fornecedor f WHERE f.nome = :nome"),
-    @NamedQuery(name = "Fornecedor.findByEndereco", query = "SELECT f FROM Fornecedor f WHERE f.endereco = :endereco"),
-    @NamedQuery(name = "Fornecedor.findByBairro", query = "SELECT f FROM Fornecedor f WHERE f.bairro = :bairro"),
-    @NamedQuery(name = "Fornecedor.findByCidade", query = "SELECT f FROM Fornecedor f WHERE f.cidade = :cidade"),
-    @NamedQuery(name = "Fornecedor.findByUf", query = "SELECT f FROM Fornecedor f WHERE f.uf = :uf"),
-    @NamedQuery(name = "Fornecedor.findByCep", query = "SELECT f FROM Fornecedor f WHERE f.cep = :cep"),
-    @NamedQuery(name = "Fornecedor.findByTelefone", query = "SELECT f FROM Fornecedor f WHERE f.telefone = :telefone"),
-    @NamedQuery(name = "Fornecedor.findByEmail", query = "SELECT f FROM Fornecedor f WHERE f.email = :email")})
+    @NamedQuery(name = "Fornecedor.findByNome", query = "SELECT f FROM Fornecedor f WHERE f.nome LIKE :nome")})
 public class Fornecedor implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFornecedor")
+    private Collection<Produto> produtoCollection;
+
+    public static final String FIND_ALL = "Fornecedor.findAll";
+    public static final String FIND_BY_NOME = "Fornecedor.findByNome";
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+    
     @Column(name = "NOME")
     private String nome;
+    
     @Column(name = "ENDERECO")
     private String endereco;
+    
     @Column(name = "BAIRRO")
     private String bairro;
+    
     @Column(name = "CIDADE")
     private String cidade;
+    
     @Column(name = "UF")
     private String uf;
+    
     @Column(name = "CEP")
     private String cep;
+    
     @Column(name = "TELEFONE")
     private String telefone;
+    
     @Column(name = "EMAIL")
     private String email;
 
@@ -157,5 +167,13 @@ public class Fornecedor implements Serializable {
     public String toString() {
         return "com.github.developermobile.sisvenda.fornecedor.Fornecedor[ id=" + id + " ]";
     }
-    
+
+    @XmlTransient
+    public Collection<Produto> getProdutoCollection() {
+        return produtoCollection;
+    }
+
+    public void setProdutoCollection(Collection<Produto> produtoCollection) {
+        this.produtoCollection = produtoCollection;
+    }
 }
