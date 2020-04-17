@@ -182,7 +182,6 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
         setPreferredSize(new java.awt.Dimension(600, 500));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jPanel1.setBackground(java.awt.SystemColor.activeCaption);
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         lbTitulo.setFont(new java.awt.Font("Serif", 0, 36)); // NOI18N
