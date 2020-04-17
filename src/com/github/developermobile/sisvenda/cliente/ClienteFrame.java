@@ -117,6 +117,7 @@ public class ClienteFrame extends javax.swing.JInternalFrame {
             cliente.setCep((String)ftfCep.getValue());
             cliente.setTelefone((String)ftfTelefone.getValue());
             cliente.setEmail(tfEmail.getText().trim());
+            System.out.println("Cep: " + cliente.getCep() + ", Uf: " + cliente.getUf() + ", Telefone: " + cliente.getTelefone());
             if (ServiceCliente.incluiCliente(cliente)) {
                 JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabela();
