@@ -17,6 +17,9 @@ import javax.persistence.ManyToOne;
 @Embeddable
 public class ItensVendaPk {
 
+    public ItensVendaPk() {
+    }
+
     public ItensVendaPk(Produto produto) {
         this.produto = produto;
     }
