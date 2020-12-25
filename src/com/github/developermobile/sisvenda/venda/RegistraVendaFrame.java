@@ -84,12 +84,12 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
         double valorTotal = 0.0;
         
         for (int i = 0; i < itensVendas.size(); i++) {
-            tableModel.insertRow(i, new Object[]{itensVendas.get(i).getProduto().getId(), 
+            tableModel.insertRow(i, new Object[]{itensVendas.get(i).getId().getProduto().getId(), 
                 itensVendas.get(i).getQtde(),
-                itensVendas.get(i).getProduto().getValor(),
-                itensVendas.get(i).getProduto().getValor() * itensVendas.get(i).getQtde()
+                itensVendas.get(i).getId().getProduto().getValor(),
+                itensVendas.get(i).getId().getProduto().getValor() * itensVendas.get(i).getQtde()
             });
-            valorTotal += itensVendas.get(i).getProduto().getValor() * itensVendas.get(i).getQtde();
+            valorTotal += itensVendas.get(i).getId().getProduto().getValor() * itensVendas.get(i).getQtde();
         }
         ftfValorTotal.setValue(valorTotal);
     }
@@ -103,7 +103,7 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
             ftfQuantidade.requestFocus();
         } else {
             ItensVenda itensVenda = new ItensVenda();
-            itensVenda.setProduto(produto);
+            itensVenda.setId(new ItensVendaPk(produto));
             itensVenda.setQtde((Integer)ftfQuantidade.getValue());
             itensVenda.setValor(produto.getValor());
             itensVendas.add(itensVenda);
@@ -131,8 +131,8 @@ public class RegistraVendaFrame extends javax.swing.JInternalFrame {
             Calendar dataAtual = Calendar.getInstance();
             venda.setDataVenda(new Date(dataAtual.getTime().getTime()));
             for (ItensVenda itensVenda : itensVendas) {
-                itensVenda.setVenda(venda);
-            }
+                itensVenda.setId(new ItensVendaPk(venda));
+            } 
             venda.setItensVendas(itensVendas);
             if (ServiceVenda.registraVenda(venda)) {
                 JOptionPane.showMessageDialog(this, "Venda registrada com sucesso!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);

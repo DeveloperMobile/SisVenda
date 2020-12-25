@@ -89,10 +89,10 @@ public class ConsultaVendaFame extends javax.swing.JInternalFrame {
             itensVendas = vendas.get(tbVenda.getSelectedRow()).getItensVendas();
             removeItensVenda();
             for (int i = 0; i < itensVendas.size(); i++) {
-                tableModelItensVenda.insertRow(i, new Object[]{itensVendas.get(i).getProduto().getNome(),
+                tableModelItensVenda.insertRow(i, new Object[]{itensVendas.get(i).getId().getProduto().getNome(),
                     itensVendas.get(i).getQtde(),
-                    itensVendas.get(i).getProduto().getValor(),
-                    itensVendas.get(i).getProduto().getValor() * itensVendas.get(i).getQtde()});
+                    itensVendas.get(i).getId().getProduto().getValor(),
+                    itensVendas.get(i).getId().getProduto().getValor() * itensVendas.get(i).getQtde()});
             }
         } else {
             removeItensVenda();

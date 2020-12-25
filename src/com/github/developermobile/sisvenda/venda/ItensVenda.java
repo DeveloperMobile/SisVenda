@@ -8,6 +8,7 @@ package com.github.developermobile.sisvenda.venda;
 import com.github.developermobile.sisvenda.produto.Produto;
 import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,18 +33,8 @@ public class ItensVenda implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Integer id;
-    
-    @JoinColumn(name = "ID_PRODUTO", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Produto produto;
-    
-    @JoinColumn(name = "ID_VENDA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Venda venda;
+    @EmbeddedId
+    private ItensVendaPk id;
     
     @Column(name = "QTDE")
     private Integer qtde;
@@ -54,28 +45,12 @@ public class ItensVenda implements Serializable {
 
     public ItensVenda() {}
 
-    public Integer getId() {
+    public ItensVendaPk getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(ItensVendaPk id) {
         this.id = id;
-    }
-    
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
-
-    public Venda getVenda() {
-        return venda;
-    }
-
-    public void setVenda(Venda venda) {
-        this.venda = venda;
     }
 
     public Integer getQtde() {
