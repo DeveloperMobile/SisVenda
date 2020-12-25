@@ -5,10 +5,13 @@
  */
 package com.github.developermobile.sisvenda.venda;
 
+import com.github.developermobile.sisvenda.produto.Produto;
 import java.io.Serializable;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,8 +30,16 @@ public class ItensVenda implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    @EmbeddedId
-    private ItensVendaPk venda;
+    @Id
+    @JoinColumn(name = "ID_PRODUTO", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Produto produto;
+    
+    @Id
+    @JoinColumn(name = "ID_VENDA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Venda venda;
+
     
     @Column(name = "QTDE")
     private Integer qtde;
@@ -39,12 +50,20 @@ public class ItensVenda implements Serializable {
 
     public ItensVenda() {}
 
-    public ItensVendaPk getId() {
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public Venda getVenda() {
         return venda;
     }
 
-    public void setId(ItensVendaPk id) {
-        this.venda = id;
+    public void setVenda(Venda venda) {
+        this.venda = venda;
     }
 
     public Integer getQtde() {
