@@ -32,15 +32,12 @@ public class ItensVenda implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Integer id;
-    
+    @Id
     @JoinColumn(name = "ID_PRODUTO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Produto produto;
     
+    @Id
     @JoinColumn(name = "ID_VENDA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Venda venda;
@@ -53,14 +50,6 @@ public class ItensVenda implements Serializable {
     private Double valor;
 
     public ItensVenda() {}
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
     
     public Produto getProduto() {
         return produto;
