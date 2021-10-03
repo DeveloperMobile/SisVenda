@@ -17,6 +17,7 @@ public class DesktopPaneImage extends JDesktopPane {
     
     public DesktopPaneImage(URL caminhoImagem) {
         this.caminhoImagem = caminhoImagem;
+        System.out.println(caminhoImagem.getPath());
     }
 
     @Override

@@ -27,13 +27,13 @@ public class FornecedorFrame extends javax.swing.JInternalFrame {
     public FornecedorFrame() {
         initComponents();
         defineModelo();
-        btnSelecionaCliente.setVisible(false);
+        btnSelecionaFornecedor.setVisible(false);
     }
     
     public FornecedorFrame(ProdutoFrame produtoFrame) {
         initComponents();
         defineModelo();
-        btnSelecionaCliente.setVisible(true);
+        btnSelecionaFornecedor.setVisible(true);
         this.produtoFrame = produtoFrame;
     }
 
@@ -233,7 +233,7 @@ public class FornecedorFrame extends javax.swing.JInternalFrame {
         lbEmail = new javax.swing.JLabel();
         tfEmail = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
-        btnSelecionaCliente = new javax.swing.JButton();
+        btnSelecionaFornecedor = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
@@ -249,10 +249,8 @@ public class FornecedorFrame extends javax.swing.JInternalFrame {
         setPreferredSize(new java.awt.Dimension(600, 500));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jPanel1.setBackground(java.awt.SystemColor.activeCaption);
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        lbTitulo.setBackground(java.awt.SystemColor.activeCaptionBorder);
         lbTitulo.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
         lbTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lbTitulo.setText("Fornecedor");
@@ -501,13 +499,13 @@ public class FornecedorFrame extends javax.swing.JInternalFrame {
 
         jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        btnSelecionaCliente.setText("Seleciona Fornecedor");
-        btnSelecionaCliente.addActionListener(new java.awt.event.ActionListener() {
+        btnSelecionaFornecedor.setText("Seleciona Fornecedor");
+        btnSelecionaFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSelecionaClienteActionPerformed(evt);
+                btnSelecionaFornecedorActionPerformed(evt);
             }
         });
-        jPanel4.add(btnSelecionaCliente);
+        jPanel4.add(btnSelecionaFornecedor);
 
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -607,7 +605,7 @@ public class FornecedorFrame extends javax.swing.JInternalFrame {
         desabilitaCampos();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void btnSelecionaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionaClienteActionPerformed
+    private void btnSelecionaFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionaFornecedorActionPerformed
         if (tbFornecedor.getSelectedRow() != -1) {
             produtoFrame.setFornecedor(fornecedores.get(tbFornecedor.getSelectedRow()));
             this.dispose();
@@ -615,7 +613,7 @@ public class FornecedorFrame extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um fornecedor da lista!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnSelecionaClienteActionPerformed
+    }//GEN-LAST:event_btnSelecionaFornecedorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -625,7 +623,7 @@ public class FornecedorFrame extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JButton btnSelecionaCliente;
+    private javax.swing.JButton btnSelecionaFornecedor;
     private javax.swing.JComboBox<String> cbUf;
     private javax.swing.JFormattedTextField ftfCep;
     private javax.swing.JFormattedTextField ftfTelefone;

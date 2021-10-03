@@ -14,7 +14,7 @@ public class JPAUtil {
     
     private static final String PERSISTENCE_UNIT = "SisVendaPU";
     
-    private static ThreadLocal<EntityManager> threadEntityManager =
+    private static final ThreadLocal<EntityManager> threadEntityManager =
             new ThreadLocal<EntityManager>();
     
     private static EntityManagerFactory emf;

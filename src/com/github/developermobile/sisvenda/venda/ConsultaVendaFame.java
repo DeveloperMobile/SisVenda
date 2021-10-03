@@ -293,10 +293,10 @@ public class ConsultaVendaFame extends javax.swing.JInternalFrame {
         System.out.println(ftfDataInicio.getText().replace("/", ""));
         //JFormattedTextField.AbstractFormatter formatterInicio = ftfDataInicio.getFormatter();
         //JFormattedTextField.AbstractFormatter formatterFim = ftfDataFim.getFormatter();
-        if (ftfDataInicio == null) {
+        if (ftfDataInicio.getValue() == null) {
             JOptionPane.showMessageDialog(this, "Informe a data inicial!", "Erro", JOptionPane.ERROR_MESSAGE);
             ftfDataInicio.requestFocus();
-        } else if (ftfDataFim == null) {
+        } else if (ftfDataFim.getValue() == null) {
             JOptionPane.showMessageDialog(this, "Informe a data final!", "Erro", JOptionPane.ERROR_MESSAGE);
             ftfDataFim.requestFocus();
         } else {
